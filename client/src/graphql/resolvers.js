@@ -36,17 +36,17 @@ import {
         });
       
 
-        // const {favoriteProductsCount} = client.readQuery({
-        //   query: GET_FAVORITE_PRODUCTS_COUNT,
-        // });
-        // client.writeQuery({
-        //   query: GET_FAVORITE_PRODUCTS_COUNT,
-        //   data: {
-        //     favoriteProductsCount: favorite
-        //       ? favoriteProductsCount - 1
-        //       : favoriteProductsCount + 1,
-        //   },
-        // });
+        const {favoriteProductsCount} = client.readQuery({
+          query: GET_FAVORITE_PRODUCTS_COUNT,
+        });
+        client.writeQuery({
+          query: GET_FAVORITE_PRODUCTS_COUNT,
+          data: {
+            favoriteProductsCount: favorite
+              ? favoriteProductsCount - 1
+              : favoriteProductsCount + 1,
+          },
+        });
       },
     },
   };

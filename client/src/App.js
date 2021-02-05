@@ -19,34 +19,19 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {HeaderFavoriteProductsCount} from './components/HeaderFavoriteProductsCount';
 
 import { ProductsList } from './screens/ProductsList'
 import { ProductDetails } from './screens/ProductDetails'
 import { GRAPHQL_URL } from './config';
 import { resolvers } from './graphql/resolvers';
+import { cache } from './graphql/cache';
 
 const Stack = createStackNavigator();
 
 const client2 = new ApolloClient({
   uri: GRAPHQL_URL,
-  cache: new InMemoryCache(
-   {
-      typePolicies:{
-        Product:{
-          fields:{
-            // favorite:{
-            //   read(favorite){
-            //     return favorite??false;
-            //   }
-            // },
-            price(price){
-              return `£${price}`
-            }
-          }
-        }
-      }
-    }
-  ),
+  cache: cache,
   resolvers: resolvers,
 })
 export default function () {
@@ -64,6 +49,9 @@ export default function () {
           <Stack.Screen
             name={'ProductList'}
             component={ProductsList}
+            options={{
+              headerRight: () => <HeaderFavoriteProductsCount />,
+            }}
           ></Stack.Screen>
 
           <Stack.Screen
