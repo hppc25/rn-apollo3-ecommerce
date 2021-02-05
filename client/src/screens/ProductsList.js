@@ -1,15 +1,21 @@
 import React from 'react'
-import {FlatList, StyleSheet, View,Text, Button} from 'react-native';
+import {FlatList, StyleSheet, View,Text, Button, Dimensions} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
 
 import {Loading} from '../components/Loading';
 import {Error} from '../components/Error';
 import { GET_ALL_PRODUCTS } from '../graphql/requests';
+// import { Product } from '../components';
+import { Product } from '../components/Product';
 
+const {height, width} = Dimensions.get('window');
 
 export function ProductsList({navigation}) {
 
-    const {data, loading, error} = useQuery(GET_ALL_PRODUCTS);
+    const {data, loading, error} = useQuery(GET_ALL_PRODUCTS,
+      // {fetchPolicy:'cache-first'}
+      );
+
 
 
   if (loading) {
@@ -18,6 +24,20 @@ export function ProductsList({navigation}) {
 
   if (error) {
     return <Error error={error} />;
+  }
+
+  function renderProduct({item: product}) {
+    return (
+      <Product
+        product={product}
+        // style={{ marginHorizontal:10, width:(width - 15) / 2}}
+        onPress={() => {
+          navigation.navigate('ProductDetails', {
+            productId: product.id,
+          });
+        }}
+      />
+    );
   }
 
   console.log("data")
@@ -31,11 +51,11 @@ export function ProductsList({navigation}) {
              {/* onPress={()=>{navigation.navigate('ProductDetails')}} */}
 
             {data && <FlatList
-                // style={styles.productsList}
-                // contentContainerStyle={styles.productsListContainer}
+                style={styles.productsList}
+                contentContainerStyle={styles.productsListContainer}
                 data={data.products}
-                // renderItem={renderProduct}
-                renderItem={({item}) => <Text>{item.name}</Text>}
+                renderItem={renderProduct}
+                // renderItem={({item}) => <Text>{item.name}</Text>}
     />
     }
    
@@ -59,5 +79,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#fafafa',
       paddingVertical: 8,
       marginHorizontal: 8,
+      // flex:1,
+      // flexWrap: 'wrap',
+     
     },
   });

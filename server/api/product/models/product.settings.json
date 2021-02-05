@@ -35,6 +35,10 @@
     "comments": {
       "collection": "comment",
       "via": "product"
+    },
+    "categories": {
+      "via": "products",
+      "collection": "category"
     }
   }
 }

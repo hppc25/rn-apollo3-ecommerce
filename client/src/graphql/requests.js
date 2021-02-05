@@ -11,6 +11,10 @@ export const PRODUCT_FRAGMENT = gql`
       id
       url
     }
+    categories {
+      id
+      name
+    }
   }
 `;
 
@@ -23,9 +27,14 @@ export const GET_ALL_PRODUCTS = gql`
       name
       price
       description
+      favorite @client
       thumb {
         id
         url
+      }
+      categories {
+        id
+        name
       }
     }
   }

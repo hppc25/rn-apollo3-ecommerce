@@ -23,12 +23,31 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { ProductsList } from './screens/ProductsList'
 import { ProductDetails } from './screens/ProductDetails'
 import { GRAPHQL_URL } from './config';
+import { resolvers } from './graphql/resolvers';
 
 const Stack = createStackNavigator();
 
 const client2 = new ApolloClient({
   uri: GRAPHQL_URL,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache(
+   {
+      typePolicies:{
+        Product:{
+          fields:{
+            // favorite:{
+            //   read(favorite){
+            //     return favorite??false;
+            //   }
+            // },
+            price(price){
+              return `£${price}`
+            }
+          }
+        }
+      }
+    }
+  ),
+  resolvers: resolvers,
 })
 export default function () {
   return (
