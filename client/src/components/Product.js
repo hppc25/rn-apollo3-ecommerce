@@ -17,16 +17,17 @@ export function Product({product, onPress, style}) {
     },
   );
 
-    console.log(product.thumb)
+    // console.log(product.thumb)
   return (
     <Card key={product.id} style={[styles.card, style]} onPress={onPress}>
-      <Image
+      {product && product.thumb.length>0 && <Image
         style={styles.thumb}
         source={{uri: BASE_URL + product.thumb[0].url}}
-      />
+      />}
       <View style={styles.infoContainer}>
         <Text style={styles.name}>{product.name}</Text>
-        <Text style={styles.category}>{product.categories[0].name}</Text>
+        {product && product.categories && product.categories.length>0 &&
+          <Text style={styles.category}>{product.categories[0].name}</Text>}
         <Text style={styles.price}>{product.price}</Text>
         <Text style={styles.description} numberOfLines={2}>{product.description}</Text>
       </View>

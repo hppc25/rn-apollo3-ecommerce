@@ -23,23 +23,11 @@ export const PRODUCT_FRAGMENT = gql`
 export const GET_ALL_PRODUCTS = gql`
   {
     products {
-      id
-      name
-      price
-      description
-      favorite @client
-      thumb {
-        id
-        url
-      }
-      categories {
-        id
-        name
-      }
+      ...ProductFragment
     }
   }
+  ${PRODUCT_FRAGMENT}
 `;
-
 
 export const ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE = gql`
   mutation AddOrRemoveProductFromFavorite($productId: ID!) {

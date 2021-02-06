@@ -16,7 +16,19 @@ export const cache = new InMemoryCache(
                return `£${price}`
              }
            }
-         }
+         },
+
+         Query: {
+          fields: {
+            product(_, {args, toReference}) {
+              return toReference({
+                __typename: 'Product',
+                id: args.id,
+              });
+            },
+          },
+        },
+
        }
      }
    );

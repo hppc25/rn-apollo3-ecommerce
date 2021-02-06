@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    color: 'red',
+    color: 'tomato',
     textAlign: 'center',
   },
 });
