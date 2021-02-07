@@ -29,6 +29,16 @@ export const GET_ALL_PRODUCTS = gql`
   ${PRODUCT_FRAGMENT}
 `;
 
+export const GET_ALL_CATEGORIES = gql`
+  query getAllCategories {
+    categories{
+      id,
+      name
+    
+    }
+  }
+`;
+
 export const ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE = gql`
   mutation AddOrRemoveProductFromFavorite($productId: ID!) {
     addOrRemoveProductFromFavorite(productId: $productId) @client
