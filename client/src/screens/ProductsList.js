@@ -7,6 +7,7 @@ import {Error} from '../components/Error';
 import { GET_ALL_PRODUCTS, GET_ALL_CATEGORIES } from '../graphql/requests';
 // import { Product } from '../components';
 import { Product2 } from '../components/Product2';
+import { SearchButton } from '../components/SearchButton';
 
 const {height, width} = Dimensions.get('window');
 const itemWidth = (width - 35) / 2;
@@ -94,6 +95,11 @@ export function ProductsList({navigation}) {
 
     return (
         <View style={styles.container}>
+
+          <View style={styles.searchContainer}>
+            <SearchButton></SearchButton>
+          </View>
+
           {renderCategories()}
          
              {/* onPress={()=>{navigation.navigate('ProductDetails')}} */}
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
   },
 
   categoriesWrapper:{
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa',
     paddingHorizontal:16,
     paddingTop:16,
 
@@ -158,7 +164,8 @@ const styles = StyleSheet.create({
 
   },
   categoriesBtnWrapper:{
-    marginTop:16,
+    marginTop:24,
+    marginBottom:12,
 
   },
 
@@ -169,6 +176,13 @@ const styles = StyleSheet.create({
   categoryBtnText:{
     fontWeight: '600',
     fontSize:18
+  },
+
+  searchContainer:{
+    paddingTop:32,
+    paddingBottom:12,
+    paddingHorizontal:16,
+    backgroundColor:'#fafafa'
   }
 
   });

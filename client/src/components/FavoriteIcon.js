@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Svg, Path} from 'react-native-svg';
 
-export function FavoriteIcon({favorite, onPress}) {
+export function FavoriteIcon({favorite, onPress, style}) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <Svg
         width={32}
         height={32}

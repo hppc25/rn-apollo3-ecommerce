@@ -64,9 +64,10 @@ export function AddComment({productId}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     marginBottom: 8,
+    height:60,
   },
   input: {
     flex: 1,
