@@ -4,7 +4,7 @@ import {useQuery, gql} from '@apollo/client';
 
 import {Loading} from '../components/Loading';
 import {Error} from '../components/Error';
-import { GET_ALL_PRODUCTS, GET_ALL_CATEGORIES } from '../graphql/requests';
+import { GET_ALL_PRODUCTS, GET_ALL_CATEGORIES, GET_ALL_PRODUCTS_BY_CATEGORY } from '../graphql/requests';
 // import { Product } from '../components';
 import { Product2 } from '../components/Product2';
 import { SearchButton } from '../components/SearchButton';
@@ -14,8 +14,15 @@ const itemWidth = (width - 35) / 2;
 
 export function ProductsList({navigation}) {
 
-    const {data, loading, error} = useQuery(GET_ALL_PRODUCTS,
-      // {fetchPolicy:'cache-first'}
+  const [categorySelected, setCategorySelected] = React.useState(1);
+
+    // const {data, loading, error} = useQuery(GET_ALL_PRODUCTS,
+    const {data, loading, error} = useQuery(GET_ALL_PRODUCTS_BY_CATEGORY,
+      {
+        variables: {
+          category: categorySelected,
+        },
+      },
       { fetchPolicy: 'cache-and-network',}
       );
 
@@ -24,7 +31,7 @@ export function ProductsList({navigation}) {
       { fetchPolicy: 'cache-and-network',}
       );
       
-      const [categorySelected, setCategorySelected] = React.useState(1);
+     
 
 
   if (loading) {
@@ -111,6 +118,8 @@ export function ProductsList({navigation}) {
                 renderItem={renderProduct}
                 numColumns={2}   
                 columnWrapperStyle={styles.row} 
+
+
                 // renderItem={({item}) => <Text>{item.name}</Text>}
     />
     }

@@ -15,6 +15,8 @@ import {persistCache} from 'apollo-cache-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {HeaderFavoriteProductsCount} from './components/HeaderFavoriteProductsCount';
+import {HeaderMenu} from './components/HeaderMenu';
+import {HeaderShoppingCart} from './components/HeaderShoppingCart';
 import { ProductsList } from './screens/ProductsList'
 import { ProductDetails } from './screens/ProductDetails'
 import { GRAPHQL_URL } from './config';
@@ -68,13 +70,19 @@ export default function () {
             name={'ProductList'}
             component={ProductsList}
             options={{
-              headerRight: () => <HeaderFavoriteProductsCount />,
+              title: 'Home', 
+              headerLeft: () => <HeaderFavoriteProductsCount />,
+              headerRight: () => <HeaderMenu />,
+              // headerRight: () => <HeaderShoppingCart />,
             }}
           ></Stack.Screen>
 
           <Stack.Screen
             name={'ProductDetails'}
             component={ProductDetails}
+            options={{
+              title: '', 
+            }}
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

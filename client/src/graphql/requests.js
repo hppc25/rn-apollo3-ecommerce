@@ -29,6 +29,20 @@ export const GET_ALL_PRODUCTS = gql`
   ${PRODUCT_FRAGMENT}
 `;
 
+
+export const GET_ALL_PRODUCTS_BY_CATEGORY = gql`
+query getAllProductsByCategory($category: ID!){
+  products( where: {categories: {id: $category} }){
+    ...ProductFragment
+  }
+}
+  ${PRODUCT_FRAGMENT}
+`;
+
+
+
+
+
 export const GET_ALL_CATEGORIES = gql`
   query getAllCategories {
     categories{
