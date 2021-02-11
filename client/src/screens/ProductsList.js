@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList, StyleSheet, View,Text, Button, Dimensions, TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet, View,Text, Dimensions, TouchableOpacity, SafeAreaView} from 'react-native';
 import {useQuery, gql} from '@apollo/client';
 
 import {Loading} from '../components/Loading';
@@ -101,7 +101,7 @@ export function ProductsList({navigation}) {
   }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
 
           <View style={styles.searchContainer}>
             <SearchButton></SearchButton>
@@ -125,7 +125,7 @@ export function ProductsList({navigation}) {
     }
    
         
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -1,11 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, Animated, Easing} from 'react-native';
 import {useMutation} from '@apollo/client';
 
 import {BASE_URL} from '../config';
 import {FavoriteIcon2} from './FavoriteIcon2';
 import {Card} from './Card';
 import {ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE} from '../graphql/requests';
+
+const AnimatedCard = Animated.createAnimatedComponent(Card);
+
 
 export function Product2({product, onPress, style}) {
   const [addOrRemoveProductFromFavorite] = useMutation(
@@ -17,9 +20,49 @@ export function Product2({product, onPress, style}) {
     },
   );
 
-    // console.log(product.thumb)
+  // const animatedValue = new Animated.Value(0);
+  const animatedValue = React.useRef(new Animated.Value(0)).current
+  const fadeAnim = React.useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+
+  
+  React.useEffect(() => {
+
+    Animated.parallel([
+
+      Animated.timing(animatedValue,{
+        toValue:1,
+        duration:1000,
+        Easing: Easing,
+        useNativeDriver: true 
+      }),
+
+      Animated.timing(
+            fadeAnim,
+            {
+              toValue: 1,
+              duration: 1000,
+              useNativeDriver: true
+            }
+          ),
+
+    ]).start(); 
+  
+
+  })
+
+  const scale = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.7, 1]
+  })
+
+  const transform = [{scale}];
+
+
   return (
-    <Card key={product.id} style={[styles.card, style]} onPress={onPress}>
+    <AnimatedCard key={product.id} style={[styles.card, style,
+    // {opacity: fadeAnim, transform,}
+    { opacity: fadeAnim, transform }
+    ]} onPress={onPress}>
       {product && product.thumb.length>0 && <Image
         style={styles.thumb}
         source={{uri: BASE_URL + product.thumb[0].url}}
@@ -38,7 +81,7 @@ export function Product2({product, onPress, style}) {
         }}
       />
         <Text style={styles.price}>{product.price}</Text>
-    </Card>
+    </AnimatedCard>
   );
 }
 
