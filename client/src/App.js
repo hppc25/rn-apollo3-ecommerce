@@ -19,6 +19,13 @@ import { resolvers } from './graphql/resolvers';
 import { cache } from './graphql/cache';
 import MainStack from './stacks/MainStack';
 
+// hide warning message  Remote debugger is in a background ...
+// hide warning message VirtualizedLists
+import { LogBox } from 'react-native';
+// LogBox.ignoreAllLogs();
+LogBox.ignoreLogs(["Remote debugger"]);
+LogBox.ignoreLogs(["VirtualizedLists"]);
+// YellowBox.ignoreWarnings(['Remote debugger']);
 
 const client2 = new ApolloClient({
   uri: GRAPHQL_URL,

@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
             height: 0,
         },
         elevation: 1,
+        borderRadius:60
 
     },
 

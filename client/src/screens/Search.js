@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 export function Search({navigation}) {
   return (
     <View style={[styles.container]} >
-      <Text>Favorites</Text>
+      <Text>Search</Text>
     </View>
   );
 }
