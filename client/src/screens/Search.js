@@ -1,18 +1,39 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import { SearchButton } from '../components/SearchButton';
 
 export function Search({navigation}) {
   return (
-    <View style={[styles.container]} >
-      <Text>Search</Text>
-    </View>
+    <SafeAreaView >
+      <View style={styles.container}>
+ 
+          <Text style={styles.title}>Search</Text>
+          <Text style={styles.subtitle}>Find Your Shoes</Text>
+          <SearchButton  ></SearchButton>
+      </View>
+      
+
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-   flex:1,
-   justifyContent:'center',
-   alignItems:'center',
+    // paddingTop:50,
+    paddingHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: '600',
+    paddingTop: 24,
+  },
+
+  subtitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    opacity: 0.5,
+    paddingTop: 8,
+    marginBottom: 24,
+    color:'black'
   },
 });
