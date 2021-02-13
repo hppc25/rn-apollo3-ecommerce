@@ -41,7 +41,7 @@ export function ShoppingCart({navigation}) {
 
         <View style={styles.btnCheckoutWrapper}>
           <Card style={styles.btnCheckout}>
-            <Text style={styles.btnCheckoutText}>Checkout</Text>
+            <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
           </Card>
         </View>
       </ScrollView>
@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
     height:55,
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:'black',
+    backgroundColor:'white',
     width:"60%",
     borderRadius:55
   },
 
   btnCheckoutText:{
-    color:'white',
+    color:'black',
     fontSize:18,
     fontWeight:'600',
   }
