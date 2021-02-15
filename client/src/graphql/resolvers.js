@@ -5,9 +5,14 @@ import {
   
   export const resolvers = {
     Product:{
-        favorite(){
-            return true;
-        }
+        // favorite(){
+        //     return true;
+        // },
+
+        priceCurrency(){
+            return 0;
+        },
+        
     },
 
     Mutation: {

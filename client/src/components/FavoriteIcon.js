@@ -1,10 +1,12 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Svg, Path} from 'react-native-svg';
+import { ZoomIn } from '../animation/ZoomIn';
 
 export function FavoriteIcon({favorite, onPress, style}) {
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+    <ZoomIn style={[styles.container, style]}>
+    <TouchableOpacity  onPress={onPress}>
       <Svg
         width={32}
         height={32}
@@ -17,6 +19,7 @@ export function FavoriteIcon({favorite, onPress, style}) {
         <Path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
       </Svg>
     </TouchableOpacity>
+    </ZoomIn>
   );
 }
 

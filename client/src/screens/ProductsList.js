@@ -8,6 +8,7 @@ import { GET_ALL_PRODUCTS, GET_ALL_CATEGORIES, GET_ALL_PRODUCTS_BY_CATEGORY } fr
 // import { Product } from '../components';
 import { Product2 } from '../components/Product2';
 import { SearchButton } from '../components/SearchButton';
+import { FadeIn } from '../animation/FadeIn';
 
 const {height, width} = Dimensions.get('window');
 const itemWidth = (width - 35) / 2;
@@ -75,7 +76,7 @@ export function ProductsList({navigation}) {
    
 
     return (
-      <View style={styles.categoriesWrapper}>
+      <FadeIn style={styles.categoriesWrapper}>
         <Text style={styles.categoriesTitle}>Categories</Text>
         
         <View style={styles.categoriesBtnWrapper}>
@@ -96,17 +97,18 @@ export function ProductsList({navigation}) {
            
         </View>
 
-      </View>
+      </FadeIn>
     )
   }
 
     return (
         <SafeAreaView style={styles.container}>
 
-          <View style={styles.searchContainer}>
-            <SearchButton></SearchButton>
-          </View>
-
+          <FadeIn>
+            <View style={styles.searchContainer}>
+              <SearchButton></SearchButton>
+            </View>
+          </FadeIn>
           {renderCategories()}
          
              {/* onPress={()=>{navigation.navigate('ProductDetails')}} */}

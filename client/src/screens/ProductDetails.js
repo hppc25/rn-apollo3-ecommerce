@@ -6,15 +6,18 @@ import Swiper from 'react-native-swiper'
 // import { Error, Loading } from '../components';
 import { Error } from '../components/Error';
 import { Loading } from '../components/Loading';
-import { Product } from '../components/Product';
 import { SwipeDot } from '../components/SwipeDot';
 import { GET_COMMENTS_BY_PRODUCT, GET_PRODUCT } from '../graphql/requests';
 import { AddComment } from '../components/AddComment';
 import { Card } from '../components/Card';
 import { BASE_URL } from '../config';
 import { FavoriteIcon } from '../components/FavoriteIcon';
-
 import ArrowBack from '../assets/icons/arrow-left-circle.svg';
+import { FadeIn } from '../animation/FadeIn';
+import { ZoomIn } from '../animation/ZoomIn';
+import ShoppingBag from '../assets/icons/shopping-bag.svg';
+import { colors } from '../config/utils';
+import { CardQtyPrice } from '../components/CardQtyPrice';
 
 
 export function ProductDetails({ route, navigation }) {
@@ -57,8 +60,6 @@ export function ProductDetails({ route, navigation }) {
   product = !productData ? null : productData.product;
 
 
-
-
   function renderComment({ item: comment }) {
     return (
       <Card id={comment.id} style={styles.commentCard}>
@@ -81,9 +82,6 @@ export function ProductDetails({ route, navigation }) {
     const { product } = productData;
     return (
       <>
-
-
-        {/* <Product product={product} /> */}
 
         <AddComment productId={product.id} />
         {commentsLoading && <Loading />}
@@ -123,30 +121,39 @@ export function ProductDetails({ route, navigation }) {
         <View style={styles.pageBody}>
 
 
-          <View style={styles.infoContainer}>
+          <FadeIn style={styles.infoContainer}>
             <Text style={styles.name}>{product.name}</Text>
             {product && product.categories && product.categories.length > 0 &&
               <Text style={styles.category}>{product.categories[0].name}</Text>}
             <Text style={styles.price}>{product.price}</Text>
             <Text style={styles.description} >{product.description}</Text>
-          </View>
+          
+            <CardQtyPrice product={product}></CardQtyPrice>
+          </FadeIn>
+          
+            <FavoriteIcon
+              favorite={product.favorite}
+              style={styles.favoriteBtn}
+            // onPress={async () => {
+            //   await addOrRemoveProductFromFavorite();
+            // }}
+            />
 
-
-          <FavoriteIcon
-            favorite={product.favorite}
-            style={styles.favoriteBtn}
-          // onPress={async () => {
-          //   await addOrRemoveProductFromFavorite();
-          // }}
-          />
-
-
+              <ZoomIn style={styles.addToBagWrapper}>
+                <Card style={styles.btnAddToBag}>
+                  <Text style={styles.btnAddToBagText}>Add To Bag</Text>
+                  <ShoppingBag style={{marginLeft:20}} width="24" height="24" fill="white"></ShoppingBag>
+                </Card>
+              </ZoomIn>
+         
+         <FadeIn>
           <FlatList
             data={commentsData ? commentsData.comments : []}
             renderItem={renderComment}
             ListHeaderComponent={renderHeader()}
             contentContainerStyle={styles.commentsContainer}
           />
+          </FadeIn>
 
 
         </View>
@@ -165,7 +172,7 @@ export function ProductDetails({ route, navigation }) {
 const styles = StyleSheet.create({
 
   commentsContainer: {
-    padding: 8,
+    paddingVertical: 16,
     marginTop: 12
   },
   commentCard: {
@@ -190,7 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    // marginBottom: -30,
+    paddingHorizontal:20,
     minHeight: 600,
     width: '100%',
 
@@ -207,7 +214,6 @@ const styles = StyleSheet.create({
 
   infoContainer: {
     paddingTop: 26,
-    paddingHorizontal: 18,
   },
   name: {
     fontSize: 22,
@@ -238,6 +244,29 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 8,
     top: 8
-  }
+  },
 
+  addToBagWrapper:{
+    alignItems:'center', 
+    marginTop:20,
+  },
+
+  btnAddToBag:{
+    height:55,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'white',
+    width:"100%",
+    borderRadius:55,
+    
+  },
+
+  btnAddToBagText:{
+    color:'black',
+    fontSize:18,
+    fontWeight:'600',
+  },
+
+ 
 });

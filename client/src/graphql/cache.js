@@ -7,14 +7,23 @@ export const cache = new InMemoryCache(
        typePolicies:{
          Product:{
            fields:{
-             // favorite:{
-             //   read(favorite){
-             //     return favorite??false;
-             //   }
-             // },
+
+             favorite:{
+               read(favorite){
+                 return favorite??false;
+               }
+             },
+
+            //  priceCurrency:{
+            //    read(price){
+            //      return price;
+            //    }
+            //  },
+            
              price(price){
-               return `£${price}`
-             }
+              return `£${price}`
+            }
+             
            }
          },
 

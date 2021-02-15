@@ -1,17 +1,17 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import { SearchButton } from '../components/SearchButton';
 
 export function Search({navigation}) {
   return (
     <SafeAreaView >
-      <View style={styles.container}>
- 
-          <Text style={styles.title}>Search</Text>
-          <Text style={styles.subtitle}>Find Your Shoes</Text>
-          <SearchButton  ></SearchButton>
-      </View>
-      
+     
+        <View style={styles.container}>
+  
+            <Text style={styles.title}>Search</Text>
+            <Text style={styles.subtitle}>Find Your Shoes</Text>
+            <SearchButton  ></SearchButton>
+        </View>
 
     </SafeAreaView>
   );

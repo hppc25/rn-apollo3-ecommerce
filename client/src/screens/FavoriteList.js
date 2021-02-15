@@ -15,7 +15,7 @@ export function FavoriteList({ navigation }) {
 
   function renderProduct({ item: product }) {
     return (
-      <CardProductList product={product}  ></CardProductList>
+      <CardProductList product={product}  navigation={navigation} ></CardProductList>
     );
   }
 
@@ -30,7 +30,6 @@ export function FavoriteList({ navigation }) {
       <ScrollView style={[styles.containerWrapper]} >
         <Text style={styles.title}>My Favorites</Text>
         <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
-
 
         <FlatList
           data={data ? data.products : []}

@@ -6,6 +6,8 @@ import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
 import { GET_ALL_PRODUCTS} from '../graphql/requests';
 import { Card } from '../components/Card';
+import { FadeIn } from '../animation/FadeIn';
+import { ZoomIn } from '../animation/ZoomIn';
 
 
 
@@ -18,8 +20,15 @@ export function ShoppingCart({navigation}) {
 
   function renderProduct({ item: product }) {
     return (
-      <CardProductList product={product} showEditableArea ></CardProductList>
+      <CardProductList product={product} showEditableArea navigation={navigation} ></CardProductList>
      );
+  }
+  function getTotalPrice(products) {
+    const reducer = (accumulator, currentValue) => accumulator.price + currentValue.price;
+    if(!products || products.length == 0)
+      return 0;
+    // return products.reduce(reducer)
+    return 342
   }
 
   if (loading) {
@@ -29,8 +38,10 @@ export function ShoppingCart({navigation}) {
   return (
     <SafeAreaView style={[styles.container]} >
       <ScrollView style={[styles.containerWrapper]} >
-        <Text style={styles.title}>My Bag</Text>
-        <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+        <FadeIn>
+          <Text style={styles.title}>My Bag</Text>
+          <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+        </FadeIn>
 
         <View>
           <FlatList
@@ -39,11 +50,25 @@ export function ShoppingCart({navigation}) {
             />
         </View>
 
-        <View style={styles.btnCheckoutWrapper}>
-          <Card style={styles.btnCheckout}>
-            <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
-          </Card>
+    { data && data.products && data.products.length >0 &&
+        
+        <View>
+          <ZoomIn style={styles.numberItemInBagWrapper}>
+            <Card style={styles.numberItemInBag}>
+              <Text style={[styles.numberItemInBagText, {opacity:0.4}]}>{data.products.length} items</Text>
+              <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text>
+            </Card>
+          </ZoomIn>
+
+          <ZoomIn style={styles.btnCheckoutWrapper}>
+            <Card style={styles.btnCheckout}>
+              <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
+            </Card>
+          </ZoomIn>
         </View>
+      }
+
+       
       </ScrollView>
     </SafeAreaView>
   );
@@ -78,7 +103,7 @@ const styles = StyleSheet.create({
 
   btnCheckoutWrapper:{
     alignItems:'center', 
-    marginTop:30,
+    marginTop:20,
    
   },
 
@@ -95,7 +120,29 @@ const styles = StyleSheet.create({
     color:'black',
     fontSize:18,
     fontWeight:'600',
-  }
+  },
+
+  numberItemInBagWrapper:{ 
+    alignItems:'center', 
+    marginTop:20,
+  },
+
+  numberItemInBag:{
+    height:55,
+    width:"100%",
+    justifyContent:'space-between',
+    flexDirection: 'row',
+    alignItems:'center',
+    backgroundColor:'rgba(255,255,255,0.5)',
+    shadowColor: 'rgba(255,255,255,0.5)',
+    paddingHorizontal:16,
+    borderRadius:55,
+  },
+
+  numberItemInBagText:{
+    fontSize:18,
+    fontWeight:'bold',
  
+  }
 
 });

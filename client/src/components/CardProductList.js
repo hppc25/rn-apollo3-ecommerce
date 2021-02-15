@@ -5,9 +5,17 @@ import { Card } from './Card';
 import ChevronDown from '../assets/icons/chevron-down.svg';
 import { BASE_URL } from '../config';
 
-export function CardProductList({product, showEditableArea}) {
+export function CardProductList({product, showEditableArea, navigation}) {
   return (
-    <Card id={product.id} style={styles.productCard}>
+    <Card 
+        id={product.id} 
+        style={styles.productCard} 
+        onPress={() => {
+          navigation.navigate('ProductDetails', {
+            productId: product.id,
+          });
+        }}
+    >
       <View>
         <Text style={styles.productTitle}>{product.name}</Text>
         {!showEditableArea && product && product.categories && product.categories.length>0 &&

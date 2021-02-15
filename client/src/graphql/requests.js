@@ -7,6 +7,7 @@ export const PRODUCT_FRAGMENT = gql`
     price
     description
     favorite @client
+    priceCurrency @client
     thumb {
       id
       url
