@@ -4,9 +4,13 @@ import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import { Card } from './Card';
 import ChevronDown from '../assets/icons/chevron-down.svg';
 import { BASE_URL } from '../config';
+import { SliderUp } from '../animation/SliderUp';
 
-export function CardProductList({product, showEditableArea, navigation}) {
+const DELAY = 150;
+
+export function CardProductList({product, showEditableArea, navigation,index}) {
   return (
+    <SliderUp delay={DELAY*index} >
     <Card 
         id={product.id} 
         style={styles.productCard} 
@@ -47,7 +51,7 @@ export function CardProductList({product, showEditableArea, navigation}) {
         source={{uri: BASE_URL + product.thumb[0].url}}
       />}
       {/* <Text>product.name</Text> */}
-    </Card>
+    </Card></SliderUp>
    
   );
 }

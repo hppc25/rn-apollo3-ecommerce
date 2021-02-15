@@ -5,6 +5,7 @@ import { useQuery, gql } from '@apollo/client';
 import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
 import { GET_ALL_PRODUCTS } from '../graphql/requests';
+import { FadeIn } from '../animation/FadeIn';
 
 
 export function FavoriteList({ navigation }) {
@@ -13,10 +14,19 @@ export function FavoriteList({ navigation }) {
     { fetchPolicy: 'cache-and-network', }
   );
 
-  function renderProduct({ item: product }) {
+  function renderProduct({ product, index }) {
     return (
-      <CardProductList product={product}  navigation={navigation} ></CardProductList>
+        <CardProductList product={product} index={index}  navigation={navigation} ></CardProductList>
     );
+  }
+  
+  function renderHeader() {
+    return (
+        <FadeIn slideValue={0}>
+          <Text style={styles.title}>My Favorites</Text>
+          <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+      </FadeIn>
+      );
   }
 
   if (loading) {
@@ -28,13 +38,12 @@ export function FavoriteList({ navigation }) {
 
     <SafeAreaView style={[styles.container]} >
       <ScrollView style={[styles.containerWrapper]} >
-        <Text style={styles.title}>My Favorites</Text>
-        <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+      
 
         <FlatList
           data={data ? data.products : []}
-          renderItem={renderProduct}
-        // ListHeaderComponent={renderHeader()}
+          renderItem={({item, index})=>renderProduct({product: item, index})}
+          ListHeaderComponent={renderHeader()}
         // contentContainerStyle={styles.commentsContainer}
         />
 

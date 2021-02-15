@@ -1,31 +1,38 @@
 import React from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
-import {useQuery, gql} from '@apollo/client';
+import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { useQuery, gql } from '@apollo/client';
 
 import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
-import { GET_ALL_PRODUCTS} from '../graphql/requests';
+import { GET_ALL_PRODUCTS } from '../graphql/requests';
 import { Card } from '../components/Card';
 import { FadeIn } from '../animation/FadeIn';
 import { ZoomIn } from '../animation/ZoomIn';
 
 
+export function ShoppingCart({ navigation }) {
 
-export function ShoppingCart({navigation}) {
-
-  const {data, loading, error} = useQuery(GET_ALL_PRODUCTS,
-    { fetchPolicy: 'cache-and-network',}
-    );
+  const { data, loading, error } = useQuery(GET_ALL_PRODUCTS,
+    { fetchPolicy: 'cache-and-network', }
+  );
 
 
-  function renderProduct({ item: product }) {
+  function renderProduct({ product, index }) {
     return (
-      <CardProductList product={product} showEditableArea navigation={navigation} ></CardProductList>
-     );
+      <CardProductList product={product} index={index} showEditableArea navigation={navigation} ></CardProductList>
+    );
+  }
+
+  function renderHeader() {
+    return (
+      <FadeIn slideValue={0}>
+        <Text style={styles.title}>My Bag</Text>
+        <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+      </FadeIn>);
   }
   function getTotalPrice(products) {
     const reducer = (accumulator, currentValue) => accumulator.price + currentValue.price;
-    if(!products || products.length == 0)
+    if (!products || products.length == 0)
       return 0;
     // return products.reduce(reducer)
     return 342
@@ -38,37 +45,35 @@ export function ShoppingCart({navigation}) {
   return (
     <SafeAreaView style={[styles.container]} >
       <ScrollView style={[styles.containerWrapper]} >
-        <FadeIn>
-          <Text style={styles.title}>My Bag</Text>
-          <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
-        </FadeIn>
 
         <View>
           <FlatList
-              data={data ? data.products : []}
-              renderItem={renderProduct}
-            />
+            data={data ? data.products : []}
+            renderItem={({ item, index }) => renderProduct({ product: item, index })}
+            ListHeaderComponent={renderHeader()}
+
+          />
         </View>
 
-    { data && data.products && data.products.length >0 &&
-        
-        <View>
-          <ZoomIn style={styles.numberItemInBagWrapper}>
-            <Card style={styles.numberItemInBag}>
-              <Text style={[styles.numberItemInBagText, {opacity:0.4}]}>{data.products.length} items</Text>
-              <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text>
-            </Card>
-          </ZoomIn>
+        {data && data.products && data.products.length > 0 &&
 
-          <ZoomIn style={styles.btnCheckoutWrapper}>
-            <Card style={styles.btnCheckout}>
-              <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
-            </Card>
-          </ZoomIn>
-        </View>
-      }
+          <View>
+            <ZoomIn style={styles.numberItemInBagWrapper}>
+              <Card style={styles.numberItemInBag}>
+                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{data.products.length} items</Text>
+                <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text>
+              </Card>
+            </ZoomIn>
 
-       
+            <ZoomIn style={styles.btnCheckoutWrapper}>
+              <Card style={styles.btnCheckout}>
+                <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
+              </Card>
+            </ZoomIn>
+          </View>
+        }
+
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -76,73 +81,73 @@ export function ShoppingCart({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-   flex:1,
-   padding:8,
-  
-  //  justifyContent:'center',
-  //  alignItems:'center',
+    flex: 1,
+    padding: 8,
+
+    //  justifyContent:'center',
+    //  alignItems:'center',
   },
 
-  containerWrapper:{
-    padding:12
+  containerWrapper: {
+    padding: 12
   },
 
-  title:{
-    fontSize:32,
+  title: {
+    fontSize: 32,
     fontWeight: '600',
-    paddingTop:24,
+    paddingTop: 24,
   },
 
-  subtitle:{
-    fontSize:18,
+  subtitle: {
+    fontSize: 18,
     fontWeight: '600',
-    opacity:0.5,
-    paddingTop:8,
-    marginBottom:24
+    opacity: 0.5,
+    paddingTop: 8,
+    marginBottom: 24
   },
 
-  btnCheckoutWrapper:{
-    alignItems:'center', 
-    marginTop:20,
-   
+  btnCheckoutWrapper: {
+    alignItems: 'center',
+    marginTop: 20,
+
   },
 
-  btnCheckout:{
-    height:55,
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:'white',
-    width:"60%",
-    borderRadius:55
+  btnCheckout: {
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    width: "60%",
+    borderRadius: 55
   },
 
-  btnCheckoutText:{
-    color:'black',
-    fontSize:18,
-    fontWeight:'600',
+  btnCheckoutText: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: '600',
   },
 
-  numberItemInBagWrapper:{ 
-    alignItems:'center', 
-    marginTop:20,
+  numberItemInBagWrapper: {
+    alignItems: 'center',
+    marginTop: 20,
   },
 
-  numberItemInBag:{
-    height:55,
-    width:"100%",
-    justifyContent:'space-between',
+  numberItemInBag: {
+    height: 55,
+    width: "100%",
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    alignItems:'center',
-    backgroundColor:'rgba(255,255,255,0.5)',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.5)',
     shadowColor: 'rgba(255,255,255,0.5)',
-    paddingHorizontal:16,
-    borderRadius:55,
+    paddingHorizontal: 16,
+    borderRadius: 55,
   },
 
-  numberItemInBagText:{
-    fontSize:18,
-    fontWeight:'bold',
- 
+  numberItemInBagText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+
   }
 
 });

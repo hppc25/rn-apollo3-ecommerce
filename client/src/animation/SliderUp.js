@@ -2,7 +2,7 @@ import React from 'react';
 import {Animated, Easing} from 'react-native';
 
 
-export function FadeIn({style, children, slideValue}) {
+export function SliderUp({style, children, scaleInitial, delay}) {
 
   const fadeAnim = React.useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
   const animatedValue = React.useRef(new Animated.Value(0)).current
@@ -16,6 +16,7 @@ export function FadeIn({style, children, slideValue}) {
             {
               toValue: 1,
               duration: 1000,
+              delay:delay,
               useNativeDriver: true
             }
           ),
@@ -33,7 +34,7 @@ export function FadeIn({style, children, slideValue}) {
 
   const translateY = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [slideValue!=undefined?slideValue:10,0]
+    outputRange: [translateY?translateY:10, 0]
   })
 
   const transform = [{translateY}];

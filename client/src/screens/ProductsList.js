@@ -137,14 +137,15 @@ const styles = StyleSheet.create({
         flex:1,
         // justifyContent:"center",
         // alignItems:"center",
-        paddingHorizontal:2
+        paddingHorizontal:2,
+        backgroundColor: '#fafafa',
     },
 
     productsList: {
-      backgroundColor: '#fafafa',
+      // backgroundColor: '#fafafa',
     },
     productsListContainer: {
-      backgroundColor: '#fafafa',
+      // backgroundColor: '#fafafa',
       paddingVertical: 8,
       marginHorizontal: 0,
   
