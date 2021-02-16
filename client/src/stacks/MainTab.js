@@ -12,7 +12,13 @@ import { SignIn } from '../screens/SignIn';
 const Tab = createBottomTabNavigator();
 
 export default () => (
-    <Tab.Navigator tabBar={props=><CustomTabBar {...props} />}>
+    <Tab.Navigator 
+    options={{
+        tabBarBadge:88,
+        tabBarBadgeStyle:{backgroundColor:'red'}
+      }}
+    
+    tabBar={props=><CustomTabBar {...props} /> }>
         <Tab.Screen name="Home" component={ProductsList} />
         <Tab.Screen name="Search" component={Search} />
         <Tab.Screen name="ShoppingCart" component={ShoppingCart} />

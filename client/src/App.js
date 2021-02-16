@@ -61,9 +61,9 @@ export default function () {
 
   return (
 
-    <ApolloProvider client={client2}>
-      <NavigationContainer >
-          <MainStack></MainStack>
+    <ApolloProvider client={client2} >
+      <NavigationContainer  >
+          <MainStack ></MainStack>
       </NavigationContainer>
     </ApolloProvider>
   )

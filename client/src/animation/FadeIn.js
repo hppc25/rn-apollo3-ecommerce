@@ -2,7 +2,7 @@ import React from 'react';
 import {Animated, Easing} from 'react-native';
 
 
-export function FadeIn({style, children, slideValue}) {
+export function FadeIn({style, children, slideValue, duration, delay}) {
 
   const fadeAnim = React.useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
   const animatedValue = React.useRef(new Animated.Value(0)).current
@@ -15,16 +15,18 @@ export function FadeIn({style, children, slideValue}) {
             fadeAnim,
             {
               toValue: 1,
-              duration: 1000,
-              useNativeDriver: true
+              duration: duration? duration: 1000,
+              useNativeDriver: true,
+              delay:delay?delay:0
             }
           ),
 
           Animated.timing(animatedValue,{
             toValue:1,
-            duration:1000,
+            duration: duration? duration: 1000,
             Easing: Easing,
-            useNativeDriver: true 
+            useNativeDriver: true ,
+            delay:delay?delay:0
           }),
 
     ]).start();   

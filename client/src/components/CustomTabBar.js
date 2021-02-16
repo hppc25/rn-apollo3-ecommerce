@@ -7,6 +7,7 @@ import SearchIcon from '../assets/icons/search.svg';
 import ShoppingCart from '../assets/icons/shopping-cart.svg';
 import FavoriteIcon from '../assets/icons/favorite.svg';
 import AccountIcon from '../assets/icons/account.svg';
+import { FadeIn } from '../animation/FadeIn';
 
 export default ({ state, navigation }) => {
 
@@ -17,8 +18,7 @@ export default ({ state, navigation }) => {
     }
 
     return (
-        <View style={styles.tabArea} >
-
+        <FadeIn style={styles.tabArea} >
 
             <View style={styles.tabItem}>
                 <TouchableOpacity onPress={() => goTo('Home')}>
@@ -50,7 +50,7 @@ export default ({ state, navigation }) => {
                     <AccountIcon style={{ opacity: state.index === 4 ? 1 : 0.6 }} width="24" height="24" fill="black"></AccountIcon>
                 </TouchableOpacity>
             </View>
-        </View>
+        </FadeIn>
     )
 }
 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
             height: 0,
         },
         elevation: 1,
-        borderRadius:60
+        borderRadius:60,
 
     },
 

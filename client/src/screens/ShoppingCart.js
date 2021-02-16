@@ -45,13 +45,13 @@ export function ShoppingCart({ navigation }) {
   return (
     <SafeAreaView style={[styles.container]} >
       <ScrollView style={[styles.containerWrapper]} >
-
+ 
         <View>
           <FlatList
             data={data ? data.products : []}
             renderItem={({ item, index }) => renderProduct({ product: item, index })}
             ListHeaderComponent={renderHeader()}
-
+            ListEmptyComponent={() => (<Text>There is no item on the bag!</Text>)}
           />
         </View>
 

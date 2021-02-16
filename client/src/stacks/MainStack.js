@@ -8,6 +8,7 @@ import { HeaderShoppingCart } from '../components/HeaderShoppingCart';
 import { ProductsList } from '../screens/ProductsList'
 import { ProductDetails } from '../screens/ProductDetails'
 import MainTab from './MainTab';
+import { View } from 'react-native';
 
 
 
@@ -18,11 +19,12 @@ export default () => {
 
 
     return (
+       
         <Stack.Navigator
             screenOptions={{
                 headerBackTitleVisible: false,
                 headerTintColor: 'black',
-                headerShown: false,
+                headerShown: false,  
             }}
         >
 
@@ -53,5 +55,6 @@ export default () => {
 
 
         </Stack.Navigator>
+    
     )
 };

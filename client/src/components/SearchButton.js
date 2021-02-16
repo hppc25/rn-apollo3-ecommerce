@@ -2,15 +2,48 @@ import React from 'react';
 import {View,TouchableOpacity, StyleSheet, TextInput} from 'react-native';
 import {Svg, Path,Circle} from 'react-native-svg';
 
+import Search from '../assets/icons/search_1.svg';
+import Close from '../assets/icons/close.svg';
+
+
 export function SearchButton({hasBackground}) {
+
+  const [searchBarFocused, setSearchBarFocused] = React.useState(false);
+
+
+  const onSearch = ()=>{
+    console.log("onBlur")
+    setSearchBarFocused(false)
+  }
+
+  const onBlur = ()=>{
+    console.log("onBlur")
+    setSearchBarFocused(false)
+  }
+  const onFocus = ()=>{
+    console.log("onFocus")
+    setSearchBarFocused(true)
+
+  }
   return (
     <View style={styles.container}>
         <TextInput 
             style={styles.input}
             placeholder={'Find your shoes'}
+            onBlur={onBlur}
+            onFocus={onFocus}
             ></TextInput>
-        <TouchableOpacity style={styles.btnSearch} >
-        <Svg
+
+        <TouchableOpacity 
+          style={styles.btnSearch}
+          onPress={onSearch} 
+          >
+
+          { searchBarFocused ?
+            <Close width="24" height="24" fill="black"></Close>:
+            <Search width="24" height="24" fill="black"></Search>
+          }
+        {/* <Svg
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -24,7 +57,7 @@ export function SearchButton({hasBackground}) {
         >
       <Circle cx={11} cy={11} r={8} />
       <Path d="M21 21l-4.35-4.35" />
-    </Svg>
+    </Svg> */}
     </TouchableOpacity>
         </View>
   );

@@ -4,6 +4,7 @@ import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
 import { runTiming } from "../config/utils";
+import { FadeIn } from '../animation/FadeIn';
 
 const { width, height } = Dimensions.get('window');
 const {
@@ -117,6 +118,8 @@ export function SignIn({ navigation }) {
       </Animated.View>
 
       <View style={{ height: height / 3, justifyContent: 'center' }}>
+        
+        <FadeIn slideValue={8} duration={800}>
         <TapGestureHandler onHandlerStateChange={onStateChange}>
           <Animated.View
             style={{
@@ -127,7 +130,9 @@ export function SignIn({ navigation }) {
             <Text style={styles.buttonSignInText}>SIGN IN</Text>
           </Animated.View>
         </TapGestureHandler>
+        </FadeIn>
 
+        <FadeIn slideValue={8} duration={800} delay={200}>
         <Animated.View
           style={{
             ...styles.button,
@@ -140,6 +145,8 @@ export function SignIn({ navigation }) {
             SIGN IN WITH FACEBOOK
         </Text>
         </Animated.View>
+        </FadeIn>
+
         <Animated.View style={{
           zIndex: textInputZIndex,
           opacity: textInputOpacity,
