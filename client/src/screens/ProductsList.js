@@ -11,7 +11,7 @@ import { SearchButton } from '../components/SearchButton';
 import { FadeIn } from '../animation/FadeIn';
 
 const {height, width} = Dimensions.get('window');
-const itemWidth = (width - 35) / 2;
+const itemWidth = (width - 55) / 2;
 
 export function ProductsList({navigation}) {
 
@@ -106,25 +106,26 @@ export function ProductsList({navigation}) {
 
           <FadeIn>
             <View style={styles.searchContainer}>
-              <SearchButton></SearchButton>
+              <SearchButton>
+                  {renderCategories()}
+
+                  {data && <FlatList
+                    style={styles.productsList}
+                    contentContainerStyle={styles.productsListContainer}
+                    data={data.products}
+                    renderItem={renderProduct}
+                    numColumns={2}   
+                    columnWrapperStyle={styles.row} 
+                  />
+                  }
+
+              </SearchButton>
             </View>
           </FadeIn>
-          {renderCategories()}
+        
          
-             {/* onPress={()=>{navigation.navigate('ProductDetails')}} */}
 
-            {data && <FlatList
-                style={styles.productsList}
-                contentContainerStyle={styles.productsListContainer}
-                data={data.products}
-                renderItem={renderProduct}
-                numColumns={2}   
-                columnWrapperStyle={styles.row} 
-
-
-                // renderItem={({item}) => <Text>{item.name}</Text>}
-    />
-    }
+          
    
         
         </SafeAreaView>
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
 
   categoriesWrapper:{
     backgroundColor: '#fafafa',
-    paddingHorizontal:16,
-    paddingTop:16,
+    // paddingHorizontal:16,
+    paddingTop:32,
 
   },
 
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   searchContainer:{
     paddingTop:32,
     paddingBottom:12,
-    paddingHorizontal:16,
+    // paddingHorizontal:16,
     backgroundColor:'#fafafa'
   }
 

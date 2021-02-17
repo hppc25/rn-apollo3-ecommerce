@@ -1,31 +1,54 @@
 import React from 'react';
-import {View,TouchableOpacity, StyleSheet, TextInput} from 'react-native';
+import {View,TouchableOpacity, StyleSheet, TextInput, ScrollView, Animated} from 'react-native';
 import {Svg, Path,Circle} from 'react-native-svg';
 
 import Search from '../assets/icons/search_1.svg';
 import Close from '../assets/icons/close.svg';
 
-
-export function SearchButton({hasBackground}) {
+export function SearchButton({hasBackground , children}) {
 
   const [searchBarFocused, setSearchBarFocused] = React.useState(false);
+  const fadeAnimation = React.useRef(new Animated.Value(0)).current // Initial value for opacity: 0
 
-
+  React.useEffect(() => {
+    fadeIn();
+  },[])
   const onSearch = ()=>{
     console.log("onBlur")
     setSearchBarFocused(false)
+    fadeIn()
   }
 
   const onBlur = ()=>{
     console.log("onBlur")
     setSearchBarFocused(false)
+    fadeIn()
   }
   const onFocus = ()=>{
     console.log("onFocus")
     setSearchBarFocused(true)
-
+    fadeOut()
   }
+ 
+  const fadeIn = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
+    <ScrollView >
+      <View style={{backgroundColor:'transparent', paddingHorizontal:12}}>
     <View style={styles.container}>
         <TextInput 
             style={styles.input}
@@ -43,23 +66,25 @@ export function SearchButton({hasBackground}) {
             <Close width="24" height="24" fill="black"></Close>:
             <Search width="24" height="24" fill="black"></Search>
           }
-        {/* <Svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-      
-        >
-      <Circle cx={11} cy={11} r={8} />
-      <Path d="M21 21l-4.35-4.35" />
-    </Svg> */}
+  
     </TouchableOpacity>
+
+
         </View>
+    
+        <Animated.View
+          style={[
+            styles.fadingContainer,
+            {
+              opacity: fadeAnimation
+            }
+          ]}
+        >
+            {children}
+        </Animated.View>
+        
+    </View>
+    </ScrollView>
   );
 }
 
@@ -80,11 +105,13 @@ const styles = StyleSheet.create({
           width: 0,
         },
         elevation: 1,
+        marginVertical:10,
+        marginHorizontal:0
   },
   input:{
       flex:1,
       fontSize:16,
-      color:'#fff'
+      color:'#fff',
   },
 
   btnSearch:{

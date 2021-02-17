@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   card: {
     marginVertical: 20,
     backgroundColor:'#f1f1f1',
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    // width: '90%'
   },
   thumb: {
     height: 130,
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   name: {
-    fontSize: 20,
+    fontSize: 18,
     // fontWeight: 'bold',
   },
   price: {
