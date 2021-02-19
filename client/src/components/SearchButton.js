@@ -69,7 +69,6 @@ export function SearchButton({hasBackground , children}) {
   
     </TouchableOpacity>
 
-
         </View>
     
         <Animated.View
