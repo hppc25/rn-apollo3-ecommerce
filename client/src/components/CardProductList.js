@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import {Swipeable} from 'react-native-gesture-handler';
 import { useQuery,} from '@apollo/client';
+import Toast from 'react-native-toast-message';
 
 import { Card } from './Card';
 import ChevronDown from '../assets/icons/chevron-down.svg';
@@ -30,11 +31,21 @@ export function CardProductList({productId, showEditableArea, navigation,index, 
 
 const product = productData ? productData.product:null;
 
+
+const removeProductFromCart = () =>{
+
+  cartItemsVar([...cartItemsVar().filter(item => item != product.id)])
+  Toast.show({
+    type: 'error',
+    text2: 'This product has been removed from cart!',
+    visibilityTime: 2000,
+  });
+}
+
   const rightActions = () =>{
     return(
-      <Card style={styles.deleteWrapper} onPress={() => cartItemsVar([...cartItemsVar().filter(item => item != product.id)])}>
+      <Card style={styles.deleteWrapper} onPress={removeProductFromCart}>
         
-     
           <RemoveIcon  width="24" height="24" fill="white"></RemoveIcon>
        
       </Card>

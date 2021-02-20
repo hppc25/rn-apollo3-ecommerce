@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import {persistCache} from 'apollo-cache-persist';
 import AsyncStorage from '@react-native-community/async-storage';
+import Toast from 'react-native-toast-message';
 
 import { Loading } from './components/Loading';
 import { GRAPHQL_URL } from './config';
@@ -65,6 +66,7 @@ export default function () {
       <NavigationContainer  >
           <MainStack ></MainStack>
       </NavigationContainer>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </ApolloProvider>
   )
 };

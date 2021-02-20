@@ -49,7 +49,7 @@ export function ShoppingCart({ navigation }) {
             data={cartItems}
             renderItem={({ item, index }) => renderProduct({ productId: item, index })}
             ListHeaderComponent={renderHeader()}
-            ListEmptyComponent={() => (<FadeIn delay={100} slideValue={5}><Text style={styles.emptyListText}>There is no item on the bag!</Text></FadeIn>)}
+            ListEmptyComponent={() => (<FadeIn delay={100}><Text style={styles.emptyListText}>There is no item on the bag!</Text></FadeIn>)}
             keyExtractor={(item, index) => item}
           />
           

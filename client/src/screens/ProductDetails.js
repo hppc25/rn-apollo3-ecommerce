@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList, Image, StyleSheet, View, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/client';
 import Swiper from 'react-native-swiper'
+import Toast from 'react-native-toast-message';
 
 // import { Error, Loading } from '../components';
 import { Error } from '../components/Error';
@@ -93,6 +94,16 @@ export function ProductDetails({ route, navigation }) {
     );
   }
 
+  function addToCart() {
+
+    cartItemsVar([...cartItemsVar(), product.id]);
+    Toast.show({
+      // text1: 'Add',
+      text2: 'This product has been added to the cart!',
+      visibilityTime: 2000,
+    });
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -141,7 +152,7 @@ export function ProductDetails({ route, navigation }) {
             />
 
               <ZoomIn style={styles.addToBagWrapper}>
-                <Card style={styles.btnAddToBag} onPress={()=> cartItemsVar([...cartItemsVar(), product.id])}>
+                <Card style={styles.btnAddToBag} onPress={addToCart}>
                   <Text style={styles.btnAddToBagText}>Add To Bag</Text>
                   <ShoppingBag style={{marginLeft:20}} width="24" height="24" fill="white"></ShoppingBag>
                 </Card>

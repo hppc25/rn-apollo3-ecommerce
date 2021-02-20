@@ -26,7 +26,7 @@ export function FavoriteList({ navigation }) {
 
   function renderProduct({ product, index }) {
     return (
-        <CardProductList product={product} index={index}  navigation={navigation} ></CardProductList>
+        <CardProductList productId={product.id} index={index}  navigation={navigation} ></CardProductList>
     );
   }
   
