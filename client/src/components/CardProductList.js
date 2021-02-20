@@ -1,27 +1,48 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
 import {Swipeable} from 'react-native-gesture-handler';
+import { useQuery,} from '@apollo/client';
 
 import { Card } from './Card';
 import ChevronDown from '../assets/icons/chevron-down.svg';
 import { BASE_URL } from '../config';
 import { SliderUp } from '../animation/SliderUp';
 import RemoveIcon from '../assets/icons/remove.svg';
+import { GET_PRODUCT } from '../graphql/requests';
+import { Loading } from './Loading';
+import { cartItemsVar } from '../graphql/cache';
 
 
 const DELAY = 150;
 
-export function CardProductList({product, showEditableArea, navigation,index, onRightPress}) {
+export function CardProductList({productId, showEditableArea, navigation,index, onRightPress}) {
   
+  const {
+    loading: productLoading,
+    error: productError,
+    data: productData,
+  } = useQuery(GET_PRODUCT, {
+    variables: {
+      productId,
+    },
+    fetchPolicy: 'cache-first',
+  });
+
+const product = productData ? productData.product:null;
+
   const rightActions = () =>{
     return(
-      <Card style={styles.deleteWrapper} onPress={() => alert(34)}>
+      <Card style={styles.deleteWrapper} onPress={() => cartItemsVar([...cartItemsVar().filter(item => item != product.id)])}>
+        
      
           <RemoveIcon  width="24" height="24" fill="white"></RemoveIcon>
        
       </Card>
     )
   }
+
+  if(productLoading)
+    return <Loading hasBackground />;
   
   return (
     <Swipeable
@@ -37,6 +58,7 @@ export function CardProductList({product, showEditableArea, navigation,index, on
           });
         }}
     >
+      
       <View>
         <Text style={styles.productTitle}>{product.name}</Text>
         {!showEditableArea && product && product.categories && product.categories.length>0 &&
@@ -63,7 +85,8 @@ export function CardProductList({product, showEditableArea, navigation,index, on
         
       </View>
       
-      { product && product.thumb.length>0 && <Image
+      
+      { product && product.thumb && product.thumb.length>0 && <Image
         style={styles.thumb}
         source={{uri: BASE_URL + product.thumb[0].url}}
       />}

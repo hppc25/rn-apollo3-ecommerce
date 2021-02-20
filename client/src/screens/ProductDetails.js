@@ -18,6 +18,7 @@ import { ZoomIn } from '../animation/ZoomIn';
 import ShoppingBag from '../assets/icons/shopping-bag.svg';
 import { colors } from '../config/utils';
 import { CardQtyPrice } from '../components/CardQtyPrice';
+import { cartItemsVar } from '../graphql/cache';
 
 
 export function ProductDetails({ route, navigation }) {
@@ -140,7 +141,7 @@ export function ProductDetails({ route, navigation }) {
             />
 
               <ZoomIn style={styles.addToBagWrapper}>
-                <Card style={styles.btnAddToBag}>
+                <Card style={styles.btnAddToBag} onPress={()=> cartItemsVar([...cartItemsVar(), product.id])}>
                   <Text style={styles.btnAddToBagText}>Add To Bag</Text>
                   <ShoppingBag style={{marginLeft:20}} width="24" height="24" fill="white"></ShoppingBag>
                 </Card>

@@ -78,6 +78,22 @@ export const GET_PRODUCT = gql`
   ${PRODUCT_FRAGMENT}
 `;
 
+export const GET_PRODUCT_BY_IDS = gql`
+  query GetAllProductsByIds($listIds: [ID!]) {
+    products( where: {id: $listIds }) {
+      ...ProductFragment
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+`;
+
+// query getAllproductsByIds($listIds: [ID!]) {
+//   products( where: {id:  $listIds }){
+//     id,
+//     name
+//   }
+// }
+
 export const GET_COMMENTS_BY_PRODUCT = gql`
   query GetCommentsByProduct($productId: ID!) {
     comments(sort: "id:desc", where: {product: {id: $productId}}) {
@@ -95,5 +111,12 @@ export const CREATE_COMMENT = gql`
         comment
       }
     }
+  }
+`;
+
+
+export const GET_CART_ITEMS = gql`
+  query GetCartItems {
+    cartItems @client
   }
 `;

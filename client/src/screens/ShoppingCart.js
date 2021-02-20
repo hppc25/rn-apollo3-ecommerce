@@ -1,26 +1,27 @@
 import React from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useReactiveVar } from '@apollo/client';
+import { cartItemsVar } from '../graphql/cache';
 
 import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
-import { GET_ALL_PRODUCTS } from '../graphql/requests';
+import { GET_ALL_PRODUCTS, GET_CART_ITEMS, GET_PRODUCT_BY_IDS } from '../graphql/requests';
 import { Card } from '../components/Card';
 import { FadeIn } from '../animation/FadeIn';
 import { ZoomIn } from '../animation/ZoomIn';
-import { cartItemsVar } from '../graphql/cache';
 
 export function ShoppingCart({ navigation }) {
 
-  const { data, loading, error } = useQuery(GET_ALL_PRODUCTS,
-    { fetchPolicy: 'cache-and-network', }
-  );
+ 
 
-  const data2 = data? data.products.slice(2):[]
+  // const { data, loading, error } = useQuery(GET_CART_ITEMS);
 
-  function renderProduct({ product, index }) {
+  const cartItems = useReactiveVar(cartItemsVar);
+
+
+  function renderProduct({ productId, index }) {
     return (
-      <CardProductList product={product} index={index} showEditableArea navigation={navigation} ></CardProductList>
+      <CardProductList ke={productId} productId={productId} index={index} showEditableArea navigation={navigation} ></CardProductList>
     );
   }
 
@@ -32,15 +33,11 @@ export function ShoppingCart({ navigation }) {
       </FadeIn>);
   }
   function getTotalPrice(products) {
-    const reducer = (accumulator, currentValue) => accumulator.price + currentValue.price;
+    // const reducer = (accumulator, currentValue) => accumulator.price + currentValue.price;
     if (!products || products.length == 0)
       return 0;
     // return products.reduce(reducer)
     return 324.95
-  }
-
-  if (loading) {
-    return <Loading hasBackground />;
   }
 
   return (
@@ -49,20 +46,25 @@ export function ShoppingCart({ navigation }) {
  
         <View>
           <FlatList
-            data={data ? data2 : []}
-            renderItem={({ item, index }) => renderProduct({ product: item, index })}
+            data={cartItems}
+            renderItem={({ item, index }) => renderProduct({ productId: item, index })}
             ListHeaderComponent={renderHeader()}
-            ListEmptyComponent={() => (<Text>There is no item on the bag!</Text>)}
+            ListEmptyComponent={() => (<FadeIn delay={100} slideValue={5}><Text style={styles.emptyListText}>There is no item on the bag!</Text></FadeIn>)}
+            keyExtractor={(item, index) => item}
           />
+          
+          
+
         </View>
 
-        {data && data.products && data.products.length > 0 &&
+        {cartItems.length > 0 &&
 
           <View>
             <ZoomIn style={styles.numberItemInBagWrapper}>
               <Card style={styles.numberItemInBag}>
-                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{data2.length} items</Text>
-                <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text>
+                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{2} items</Text>
+                {/* <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text> */}
+                <Text style={styles.numberItemInBagText}>£{getTotalPrice(cartItems)}</Text>
               </Card>
             </ZoomIn>
 
@@ -146,6 +148,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
 
+  },
+
+  emptyListText:{
+    color:'gray',
+    textAlign:'center'
   }
 
 });
