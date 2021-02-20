@@ -9,6 +9,7 @@ export function HeaderFavoriteProductsCount() {
 
   return (
     <View style={styles.container}>
+      {/* <Text style={styles.text}>{data.favoriteProductsCount}</Text> */}
       <Text style={styles.text}>{data.favoriteProductsCount}</Text>
     </View>
   );

@@ -4,15 +4,25 @@ import { useQuery, gql } from '@apollo/client';
 
 import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
-import { GET_ALL_PRODUCTS } from '../graphql/requests';
+import { GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_CATEGORY } from '../graphql/requests';
 import { FadeIn } from '../animation/FadeIn';
+import { HeaderFavoriteProductsCount } from '../components/HeaderFavoriteProductsCount';
 
 
 export function FavoriteList({ navigation }) {
 
-  const { data, loading, error } = useQuery(GET_ALL_PRODUCTS,
-    { fetchPolicy: 'cache-and-network', }
-  );
+  // const { data, loading, error } = useQuery(GET_ALL_PRODUCTS,
+  //   { fetchPolicy: 'cache-and-network', }
+  // );
+
+  const {data, loading, error} = useQuery(GET_ALL_PRODUCTS_BY_CATEGORY,
+    {
+      variables: {
+        category: 2,
+      },
+    },
+    { fetchPolicy: 'cache-and-network',}
+    );
 
   function renderProduct({ product, index }) {
     return (
@@ -23,8 +33,11 @@ export function FavoriteList({ navigation }) {
   function renderHeader() {
     return (
         <FadeIn slideValue={0}>
-          <Text style={styles.title}>My Favorites</Text>
-          <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
+          <View style={styles.titleWrapper}>
+            <Text style={styles.title}>My Wishlist</Text>
+            <HeaderFavoriteProductsCount></HeaderFavoriteProductsCount>
+          </View>
+          <Text style={styles.subtitle}>List of Your Favorites Shoes</Text>
       </FadeIn>
       );
   }
@@ -75,5 +88,10 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     marginBottom: 24
   },
+
+  titleWrapper:{
+    flexDirection:'row', 
+    alignItems:'center'
+  }
 
 });

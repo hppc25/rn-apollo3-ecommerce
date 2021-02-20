@@ -41,9 +41,6 @@ query getAllProductsByCategory($category: ID!){
 `;
 
 
-
-
-
 export const GET_ALL_CATEGORIES = gql`
   query getAllCategories {
     categories{

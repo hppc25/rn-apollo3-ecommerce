@@ -8,7 +8,7 @@ import { GET_ALL_PRODUCTS } from '../graphql/requests';
 import { Card } from '../components/Card';
 import { FadeIn } from '../animation/FadeIn';
 import { ZoomIn } from '../animation/ZoomIn';
-
+import { cartItemsVar } from '../graphql/cache';
 
 export function ShoppingCart({ navigation }) {
 
@@ -16,6 +16,7 @@ export function ShoppingCart({ navigation }) {
     { fetchPolicy: 'cache-and-network', }
   );
 
+  const data2 = data? data.products.slice(2):[]
 
   function renderProduct({ product, index }) {
     return (
@@ -35,7 +36,7 @@ export function ShoppingCart({ navigation }) {
     if (!products || products.length == 0)
       return 0;
     // return products.reduce(reducer)
-    return 342
+    return 324.95
   }
 
   if (loading) {
@@ -48,7 +49,7 @@ export function ShoppingCart({ navigation }) {
  
         <View>
           <FlatList
-            data={data ? data.products : []}
+            data={data ? data2 : []}
             renderItem={({ item, index }) => renderProduct({ product: item, index })}
             ListHeaderComponent={renderHeader()}
             ListEmptyComponent={() => (<Text>There is no item on the bag!</Text>)}
@@ -60,7 +61,7 @@ export function ShoppingCart({ navigation }) {
           <View>
             <ZoomIn style={styles.numberItemInBagWrapper}>
               <Card style={styles.numberItemInBag}>
-                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{data.products.length} items</Text>
+                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{data2.length} items</Text>
                 <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text>
               </Card>
             </ZoomIn>
@@ -83,9 +84,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
-
-    //  justifyContent:'center',
-    //  alignItems:'center',
   },
 
   containerWrapper: {

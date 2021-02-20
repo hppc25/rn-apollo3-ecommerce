@@ -1,15 +1,32 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
+import {Swipeable} from 'react-native-gesture-handler';
 
 import { Card } from './Card';
 import ChevronDown from '../assets/icons/chevron-down.svg';
 import { BASE_URL } from '../config';
 import { SliderUp } from '../animation/SliderUp';
+import RemoveIcon from '../assets/icons/remove.svg';
+
 
 const DELAY = 150;
 
-export function CardProductList({product, showEditableArea, navigation,index}) {
+export function CardProductList({product, showEditableArea, navigation,index, onRightPress}) {
+  
+  const rightActions = () =>{
+    return(
+      <Card style={styles.deleteWrapper} onPress={() => alert(34)}>
+     
+          <RemoveIcon  width="24" height="24" fill="white"></RemoveIcon>
+       
+      </Card>
+    )
+  }
+  
   return (
+    <Swipeable
+    renderRightActions={rightActions}
+    >
     <SliderUp delay={DELAY*index} >
     <Card 
         id={product.id} 
@@ -52,6 +69,7 @@ export function CardProductList({product, showEditableArea, navigation,index}) {
       />}
       {/* <Text>product.name</Text> */}
     </Card></SliderUp>
+    </Swipeable>
    
   );
 }
@@ -126,6 +144,14 @@ const styles = StyleSheet.create({
   select:{
     fontSize:20,
     opacity:0.5,
+  },
+  deleteWrapper:{
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'white',
+    width:80,
+    marginLeft:12,
+    height:'88%',
   }
 
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
 import Svg, { Image, Circle, ClipPath } from 'react-native-svg';
@@ -56,7 +56,7 @@ export function SignIn({ navigation }) {
 
   const bgY = interpolate(buttonOpacity, {
     inputRange: [0, 1],
-    outputRange: [-height / 3 - 50, 0],
+    outputRange: [-height / 2.5 -30, 0],
     extrapolate: Extrapolate.CLAMP
   });
 
@@ -119,32 +119,34 @@ export function SignIn({ navigation }) {
 
       <View style={{ height: height / 3, justifyContent: 'center' }}>
         
-        <FadeIn slideValue={8} duration={800}>
-        <TapGestureHandler onHandlerStateChange={onStateChange}>
+        <FadeIn slideValue={8} duration={700}>
+          <TapGestureHandler onHandlerStateChange={onStateChange}>
+            <Animated.View
+              style={{
+                ...styles.button,
+                opacity: buttonOpacity,
+                transform: [{ translateY: buttonY }],
+                marginTop:20,
+              }}>
+              <Text style={styles.buttonSignInText}>SIGN IN</Text>
+            </Animated.View>
+          </TapGestureHandler>
+        </FadeIn>
+
+       
+        <FadeIn slideValue={8} duration={700} delay={100}>
           <Animated.View
             style={{
               ...styles.button,
+              backgroundColor: '#2E71DC',
               opacity: buttonOpacity,
               transform: [{ translateY: buttonY }]
-            }}>
-            <Text style={styles.buttonSignInText}>SIGN IN</Text>
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
+              CONTINUE WITH FACEBOOK
+          </Text>
           </Animated.View>
-        </TapGestureHandler>
-        </FadeIn>
-
-        <FadeIn slideValue={8} duration={800} delay={200}>
-        <Animated.View
-          style={{
-            ...styles.button,
-            backgroundColor: '#2E71DC',
-            opacity: buttonOpacity,
-            transform: [{ translateY: buttonY }]
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
-            SIGN IN WITH FACEBOOK
-        </Text>
-        </Animated.View>
         </FadeIn>
 
         <Animated.View style={{
@@ -170,7 +172,7 @@ export function SignIn({ navigation }) {
 
           <TextInput
             placeholder="Email"
-            style={styles.textInput}
+            style={[styles.textInput,{marginTop:-20}]}
             placeholderTextColor="black"
           ></TextInput>
 
@@ -180,9 +182,20 @@ export function SignIn({ navigation }) {
             placeholderTextColor="black"
           ></TextInput>
 
+          <TouchableOpacity style={styles.forgetPasswordBtn}>
+              <Text style={{color:'gray'}}>Forgot your Password?</Text>
+          </TouchableOpacity>
+          
+
           <Animated.View style={[styles.button, { marginTop: 10 }]}>
             <Text style={styles.buttonSignInText}>Sign In</Text>
           </Animated.View>
+
+          <View style={{justifyContent:'center', marginTop:10, flexDirection:'row'}}>
+              <Text>Not a member?</Text>
+              <Text style={{color: 'gray'}}> Sign Up</Text>
+          </View>
+            
 
         </Animated.View>
       </View>
@@ -244,7 +257,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: -20,
+    top: -55,
     left: width / 2 - 20,
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -255,5 +268,12 @@ const styles = StyleSheet.create({
     },
     elevation: 1,
 
+  },
+
+  forgetPasswordBtn:{
+    marginTop:5,
+    marginBottom:10,
+    alignItems:'flex-end',
+    marginRight: 20
   }
 });
