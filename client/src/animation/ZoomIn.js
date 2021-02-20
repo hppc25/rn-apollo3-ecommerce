@@ -15,14 +15,14 @@ export function ZoomIn({style, children, scaleInitial}) {
             fadeAnim,
             {
               toValue: 1,
-              duration: 1000,
+              duration: 700,
               useNativeDriver: true
             }
           ),
 
           Animated.timing(animatedValue,{
             toValue:1,
-            duration:1000,
+            duration:700,
             Easing: Easing,
             useNativeDriver: true 
           }),

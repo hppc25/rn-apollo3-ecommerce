@@ -15,7 +15,7 @@ export function FadeIn({style, children, slideValue, duration, delay}) {
             fadeAnim,
             {
               toValue: 1,
-              duration: duration? duration: 1000,
+              duration: duration? duration: 700,
               useNativeDriver: true,
               delay:delay?delay:0
             }
@@ -23,7 +23,7 @@ export function FadeIn({style, children, slideValue, duration, delay}) {
 
           Animated.timing(animatedValue,{
             toValue:1,
-            duration: duration? duration: 1000,
+            duration: duration? duration: 700,
             Easing: Easing,
             useNativeDriver: true ,
             delay:delay?delay:0
