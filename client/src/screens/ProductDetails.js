@@ -95,13 +95,14 @@ export function ProductDetails({ route, navigation }) {
   }
 
   function addToCart() {
-
-    cartItemsVar([...cartItemsVar(), product.id]);
+    if(cartItemsVar().filter( item => item == product.id ).length == 0 ){
+      cartItemsVar([...cartItemsVar(), product.id]);
+    }
     Toast.show({
-      // text1: 'Add',
       text2: 'This product has been added to the cart!',
       visibilityTime: 2000,
     });
+    
   }
 
   return (

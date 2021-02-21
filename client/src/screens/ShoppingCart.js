@@ -52,8 +52,6 @@ export function ShoppingCart({ navigation }) {
             ListEmptyComponent={() => (<FadeIn delay={100}><Text style={styles.emptyListText}>There is no item on the bag!</Text></FadeIn>)}
             keyExtractor={(item, index) => item}
           />
-          
-          
 
         </View>
 
@@ -62,7 +60,7 @@ export function ShoppingCart({ navigation }) {
           <View>
             <ZoomIn style={styles.numberItemInBagWrapper}>
               <Card style={styles.numberItemInBag}>
-                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{2} items</Text>
+                <Text style={[styles.numberItemInBagText, { opacity: 0.4 }]}>{cartItems.length} items</Text>
                 {/* <Text style={styles.numberItemInBagText}>£{getTotalPrice(data.products)}</Text> */}
                 <Text style={styles.numberItemInBagText}>£{getTotalPrice(cartItems)}</Text>
               </Card>

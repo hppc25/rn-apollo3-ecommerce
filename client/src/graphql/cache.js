@@ -3,6 +3,7 @@ import { InMemoryCache, makeVar } from '@apollo/client';
 import {GET_FAVORITE_PRODUCTS_COUNT} from './requests';
 
 export const cartItemsVar = makeVar([]);
+export const favoritesItemsVar = makeVar([]);
 
 export const cache = new InMemoryCache(
     {
@@ -46,7 +47,12 @@ export const cache = new InMemoryCache(
               read() {
                 return cartItemsVar();
               }
-            }
+            },
+            favoritesItemsVar: {
+              read() {
+                return cartItemsVar();
+              }
+            },
           },
         }
 
