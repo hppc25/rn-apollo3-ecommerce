@@ -1,11 +1,9 @@
 import React from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { useQuery, gql, useReactiveVar } from '@apollo/client';
+import {useReactiveVar } from '@apollo/client';
 import { cartItemsVar } from '../graphql/cache';
 
-import { Loading } from '../components/Loading';
 import { CardProductList } from '../components/CardProductList';
-import { GET_ALL_PRODUCTS, GET_CART_ITEMS, GET_PRODUCT_BY_IDS } from '../graphql/requests';
 import { Card } from '../components/Card';
 import { FadeIn } from '../animation/FadeIn';
 import { ZoomIn } from '../animation/ZoomIn';
@@ -28,7 +26,7 @@ export function ShoppingCart({ navigation }) {
   function renderHeader() {
     return (
       <FadeIn slideValue={0}>
-        <Text style={styles.title}>My Bag</Text>
+        <Text style={styles.title}>My Cart</Text>
         <Text style={styles.subtitle}>Check and Pay Your Shoes</Text>
       </FadeIn>);
   }
@@ -37,7 +35,8 @@ export function ShoppingCart({ navigation }) {
     if (!products || products.length == 0)
       return 0;
     // return products.reduce(reducer)
-    return 324.95
+    return 274.9
+    // return 324.95
   }
 
   return (
@@ -49,7 +48,7 @@ export function ShoppingCart({ navigation }) {
             data={cartItems}
             renderItem={({ item, index }) => renderProduct({ productId: item, index })}
             ListHeaderComponent={renderHeader()}
-            ListEmptyComponent={() => (<FadeIn delay={100}><Text style={styles.emptyListText}>There is no item on the bag!</Text></FadeIn>)}
+            ListEmptyComponent={() => (<FadeIn delay={100}><Text style={styles.emptyListText}>There are no Items in the Cart!</Text></FadeIn>)}
             keyExtractor={(item, index) => item}
           />
 

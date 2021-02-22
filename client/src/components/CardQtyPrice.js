@@ -4,6 +4,8 @@ import {StyleSheet, TouchableOpacity, View, Text, } from 'react-native';
 import ChevronDown from '../assets/icons/chevron-down.svg';
 
 export function CardQtyPrice({product}) {
+
+  console.log(product)
   return (
             
   
@@ -21,15 +23,26 @@ export function CardQtyPrice({product}) {
         </View>
 
         <View style={styles.qtySizeContainer}>
-        <Text style={styles.qtySizeLabel}>QTY</Text>
-        <View style={styles.qtySizeDetail}>
-            <Text style={styles.qtySizeText}>1</Text>
-            <TouchableOpacity >
-              <ChevronDown  width="24" height="24" fill="transparent"></ChevronDown>
-          </TouchableOpacity>
+          <Text style={styles.qtySizeLabel}>Color</Text>
+          <View style={styles.qtySizeDetail}>
+              <View style={[styles.colorItem, {backgroundColor: product.color?product.color:'white'}]}></View>
+              <TouchableOpacity >
+                <ChevronDown  width="24" height="24" fill="transparent"></ChevronDown>
+            </TouchableOpacity>
+          </View>
         </View>
-        
+
+        <View style={styles.qtySizeContainer}>
+          <Text style={styles.qtySizeLabel}>QTY</Text>
+          <View style={styles.qtySizeDetail}>
+              <Text style={styles.qtySizeText}>1</Text>
+              <TouchableOpacity >
+                <ChevronDown  width="24" height="24" fill="transparent"></ChevronDown>
+            </TouchableOpacity>
+          </View>
         </View>
+
+       
 
     </View>
     
@@ -80,6 +93,12 @@ const styles = StyleSheet.create({
     fontSize:16,
     color: 'gray',
     marginBottom:3,
+  },
+
+  colorItem:{
+    width: 20,
+    height: 20,
+    borderRadius:20,
   }
 
 });

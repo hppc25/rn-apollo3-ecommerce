@@ -11,7 +11,7 @@ import { SearchButton } from '../components/SearchButton';
 import { FadeIn } from '../animation/FadeIn';
 
 const {height, width} = Dimensions.get('window');
-const itemWidth = (width - 55) / 2;
+const itemWidth = (width - 60) / 2;
 
 export function ProductsList({navigation}) {
 

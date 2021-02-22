@@ -37,8 +37,11 @@
       "via": "product"
     },
     "categories": {
-      "via": "products",
-      "collection": "category"
+      "collection": "category",
+      "via": "products"
+    },
+    "color": {
+      "type": "string"
     }
   }
 }

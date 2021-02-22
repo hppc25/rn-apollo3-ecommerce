@@ -6,6 +6,7 @@ export const PRODUCT_FRAGMENT = gql`
     name
     price
     description
+    color
     favorite @client
     priceCurrency @client
     thumb {
